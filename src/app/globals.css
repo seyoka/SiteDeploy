@@ -25,3 +25,109 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+#a {
+  color: #0666fb;
+  position: relative;
+  text-decoration: none;
+}
+
+#a::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  background-color: #0666fb;   
+  bottom: 0;
+  left: 0;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform .3s ease-in-out;
+}
+
+#a:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+#B {
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+}
+
+#B::before,
+#B::after {
+ content: '';
+  position: absolute;
+  width: 100%;
+  left: 0;
+}
+#B::before {
+  background-color: #0666fb;
+  height: 2px;
+  bottom: 0;
+  transform-origin: 100% 50%;
+  transform: scaleX(0);
+  transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+}
+#B::after {
+  content: attr(data-replace);
+  height: 100%;
+  top: 0;
+  transform-origin: 100% 50%;
+  transform: translate3d(200%, 0, 0);
+  transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+  color: #0666fb;
+}
+
+#B:hover::before {
+  transform-origin: 0% 50%;
+  transform: scaleX(1);
+}
+#B:hover::after {
+  transform: translate3d(0, 0, 0);
+}
+
+#B span {
+  display: inline-block;
+  transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+#B:hover span {
+  transform: translate3d(-200%, 0, 0);
+}
+
+/* Presentational Styles */
+body {
+  display: grid;
+  font-family: 'Poppins', sans-serif;
+  font-size: 27px;
+  line-height: 1.5;
+  height: 100vh;
+  place-items: center;
+}
+.hover-fill {
+  width: 30px; /* Set a width for the container */
+  transition: fill 0.3s ease; /* Smooth transition for the 'fill' property */
+}
+
+.hover-fill:hover svg {
+  fill: #0666fb; /* Change the fill color on hover */
+}
+.AboutMe{
+  color: white;
+}
+
+
+.linkedin-svg{
+  fill: #0666fb;
+  transition: fill 0.3s linear;
+  /* stroke: red; */
+}
+
+.linkedin-svg:hover{
+  fill: white;
+  transition: fill 0.1s linear;
+  cursor: pointer;
+
+}
