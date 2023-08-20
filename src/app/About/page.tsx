@@ -9,11 +9,13 @@ export default function AboutMe(){
     return(
         <main>
         <h1 className='text-5xl text-center'>About Me</h1>
-        {/* <nav className='
-    items-center justify-center gap-6 mt-10'> */}
-        <h2>Founder of <span className='text-blue-600'>Induct</span></h2>
-        <h2>Patch 23</h2> 
-        <h2>Limerick Leader article</h2>
+        <nav className='
+        items-center justify-center gap-6 mt-10'>
+        <p>Founder of <a className='text-blue-600' href='https://induct.ie/'>Induct, </a>I am one of the founders of induct. A simple solution to Access Management</p>
+        <h2>Patch<a className='text-blue-600'> 23</a></h2>
+        <p> I partook in the patch 23 cohort, the best time of my life could not reccomend something more; if youre interested check it out <a href='https://joinpatch.org' 
+        className='text-blue-600'>Here</a></p> 
+        <p>Limerick Leader article. <a className=''>here</a></p>
         </nav>
         </main>
     )
