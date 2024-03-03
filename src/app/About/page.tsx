@@ -113,7 +113,7 @@ export default function AboutMe() {
                         <span className="underline">In Search Of Schrodinger's Cat</span> - John Gribbin
                     </a>
                     <br/>
-                    <p>Please send me recommendations :)</p>
+                    <p>Please send me recommendations!</p>
                 </div>
             </div>  
         </section>
