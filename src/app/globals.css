@@ -3,27 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --foreground-rgb: 255, 255, 255;  /* text color */
+  --background-start-rgb: 0, 0, 0; /* starting bg color */
+  --background-end-rgb: 0, 0, 0;   /* ending bg color */
 }
 
 body {
+  font-family: 'Roboto', sans-serif;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    to bottom,
+    transparent,
+    rgb(var(--background-end-rgb))
+  )
+  rgb(var(--background-start-rgb));
 }
 #a {
   color: #0666fb;
@@ -130,4 +123,40 @@ body {
   transition: fill 0.1s linear;
   cursor: pointer;
 
+}
+
+#c {
+  color: white;
+  position: relative;
+  text-decoration: none;
+}
+
+#c::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  background-color: #0666fb;   
+  bottom: 0;
+  left: 0;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform .3s ease-in-out;
+}
+
+#c:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgb(var(--background-end-rgb))
+  )
+  rgb(var(--background-start-rgb));
 }
