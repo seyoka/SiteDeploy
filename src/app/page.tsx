@@ -8,7 +8,7 @@ import { AiFillLinkedin } from 'react-icons/ai';
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-8 w-full selection:text-blue-600 px-4 sm:gap-12 sm:px-0">
-      <title>Ryan Morrissey</title>
+      <title>Ryan Morrissey's Personal site</title>
       <h1 className="text-3xl text-center font-bold text-white sm:text-4xl md:text-5xl lg:text-6xl">
         Hi. I'm <span id='a' className="text-blue-600">Ryan</span>
       </h1>
