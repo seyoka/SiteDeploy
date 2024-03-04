@@ -9,11 +9,12 @@ import head from
 
 export default function Home() {
   return (
-    <>
-      <Head>
-        <title>Ryan Morrisseys site</title>
-      </Head>
     <main className="flex min-h-screen flex-col items-center justify-center gap-8 w-full selection:text-blue-600 px-4 sm:gap-12 sm:px-0">
+      <div>
+        <Head>
+          <title>Ryan Morrissey</title>
+        </Head>
+      </div>
       <h1 className="text-3xl text-center font-bold text-white sm:text-4xl md:text-5xl lg:text-6xl">
         Hi. I'm <span id='a' className="text-blue-600">Ryan</span>
       </h1>
@@ -51,6 +52,5 @@ export default function Home() {
       <a href='/About' id='c' className='text-white text-2xl sm:text-3xl lg:text-4xl hover:text-blue-600 cursor-pointer'>About Me</a> 
       <a href="/Contact" id='B' className='text-white text-lg sm:text-xl lg:text-2xl'>Contact Me</a>
     </main>
-    </>
   );
 }
