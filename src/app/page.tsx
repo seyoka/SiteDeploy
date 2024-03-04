@@ -13,7 +13,6 @@ export default function Home() {
         <title>Ryan Morrissey</title>
 
       </Head>
-      </div>
       <h1 className="text-3xl text-center font-bold text-white sm:text-4xl md:text-5xl lg:text-6xl">
         Hi. I'm <span id='a' className="text-blue-600">Ryan</span>
       </h1>
