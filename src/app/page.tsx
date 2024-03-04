@@ -8,10 +8,9 @@ import Head from 'next/head'; // Corrected import for Head
 
 export default function Home() {
   return (
-    <>
+    <React.Fragment>
       <Head>
         <title>Ryan Morrissey</title>
-
       </Head>
       <h1 className="text-3xl text-center font-bold text-white sm:text-4xl md:text-5xl lg:text-6xl">
         Hi. I'm <span id='a' className="text-blue-600">Ryan</span>
@@ -50,6 +49,6 @@ export default function Home() {
       <a href='/About' id='c' className='text-white text-2xl sm:text-3xl lg:text-4xl hover:text-blue-600 cursor-pointer'>About Me</a> 
       <a href="/Contact" id='B' className='text-white text-lg sm:text-xl lg:text-2xl'>Contact Me</a>
       </main>
-    </>
+    </React.Fragment>
   );
 }
