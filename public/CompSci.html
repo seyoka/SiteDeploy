@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Science G.U.I</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.0.1/progressbar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/public/CompSci.css">
+
+</head>
+<body>
+    <h1 class="Heading">Effect of Decibel Levels</h1>
+    <div class="parent-container">
+        
+        <div class="container"> 
+            <h1>Noise Dose Calculator</h1>
+            <label for="exposureLevel">Exposure Level (dB):</label>
+            <input type="number" id="exposureLevel" placeholder="Enter dB level">
+            <label for="exposureTime">Exposure Time (minutes):</label>
+            <input type="number" id="exposureTime" placeholder="Enter time in minutes">
+            <button id="doseCalculateButton">Calculate</button>
+            <div id="container"  style="width: 200px; height: 200px; margin-top: 10px;"></div> <!-- This id should be unique -->
+            <p id="doseResult"></p>
+        </div>
+
+
+        <div class="container">
+            <h1>Hearing Test</h1>
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+
+            </select>
+    
+            <!-- Age input -->
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" placeholder="Enter your age" min="0" required>
+    
+            <button id="hearingTestButton">Start Test</button>
+            <div style="display:none;" id="responseButtons">
+                <p>Did you hear the tone?</p>
+                <button id="heardYes">Yes</button>
+                <button id="heardNo">No</button>
+                <p id="hearingTestResult"></p>
+            </div>
+            <div id="hearingTestContainer" style="width: 200px; height: 200px; margin-top: 10px;"></div>
+            <div id="resultContainer" style="margin-top: -150px; margin-bottom: 100px;">
+                <h1>Test Results</h1>
+                <p id="finalTestResult">Your final results will appear here.</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <h1>Leq Calculator</h1>
+                <form id="dbForm">
+                    <label for="occupation">Select your occupation:</label>
+                    <select id="occupation" required>
+                        <option value="Teacher">Teacher</option>
+                        <option value="TeacherPractical">Teacher (Technology, Woodwork, or any practical subject)</option>
+                        <option value="ConstructionWorker">Construction Worker</option>
+                        <option value="Electrician">Electrician</option>
+                    </select>
+
+                    <label for="dbValues">Enter dB values (separated by commas):</label>
+                    <input type="text" id="dbValues" placeholder="44, 53, 67, ..." required>
+                    <button type="submit">Calculate Leq</button>
+                </form>
+                <h1 style="margin-top: 20px;">Leq Results</h1>
+                <p id="result">Result will appear here </p>
+        </div>
+    </div>
+
+
+
+    <script>
+        const OSHA_STANDARD= 85; // Declare it globally once
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            var isTestRunning = false;
+            var currentFrequencyIndex = 0;
+            var testFrequencies = [250, 500, 1000, 2000, 4000, 8000, 16000];
+            var heardFrequencies = [];
+            const OSHA_Standard = 85;
+            // Correct the container reference for the ProgressBar
+    
+            var bar = new ProgressBar.Circle(container, {
+                strokeWidth: 6,
+                color: '#0000FF',
+                trailColor: '#333333',
+                trailWidth: 1,
+                svgStyle: null
+            });
+
+        document.getElementById('doseCalculateButton').addEventListener('click', calculateAndDisplayNoiseDose);
+
+        function calculateAndDisplayNoiseDose() {
+            var exposureLevel = parseFloat(document.getElementById('exposureLevel').value);
+            var exposureTime = parseFloat(document.getElementById('exposureTime').value);
+
+            var referenceLevel = 85; // dB(A)
+            var referenceTime = 8 * 60; // minutes
+
+            if (isNaN(exposureLevel) || isNaN(exposureTime)) {
+                alert("Please enter valid numbers for both exposure level and time.");
+                return;
+            }
+
+            if (exposureLevel < referenceLevel) {
+                document.getElementById('doseResult').innerText = "Your exposure level is below the NIOSH REL reference level. You are in a Healthy and safe range for dB.";
+                bar.set(0); // Reset the progress bar if under reference level
+                return;
+            }
+
+            var permissibleTime = referenceTime * Math.pow(2, (referenceLevel - exposureLevel) / 3);
+            var dosePercentage = (exposureTime / permissibleTime) * 100;
+
+            dosePercentage = Math.min(dosePercentage, 100); // Ensure it doesn't exceed 100%
+            var remainingPercentage = 100 - dosePercentage; // Calculate the remaining safe exposure percentage
+
+            bar.animate(dosePercentage / 100); // Animate progress bar to the dose percentage
+            document.getElementById('doseResult').innerText = "You have been exposed to " + dosePercentage.toFixed(2) + 
+                "% of your daily noise dose limit. You can safely be exposed to an additional " + remainingPercentage.toFixed(2) + 
+                "% of your daily noise dose limit.";
+        }
+
+
+        document.getElementById('hearingTestButton').addEventListener('click', startHearingTest);
+        document.getElementById('heardYes').addEventListener('click', () => heardTone(true));
+        document.getElementById('heardNo').addEventListener('click', () => heardTone(false));
+
+
+        function startHearingTest() {
+            isTestRunning = true;
+            currentFrequencyIndex = 0;
+            heardFrequencies = [];
+            document.getElementById('hearingTestButton').style.display = 'none';
+            document.getElementById('responseButtons').style.display = 'block';
+            testNextFrequency();
+        }
+
+        function testNextFrequency() {
+            if (!isTestRunning || currentFrequencyIndex >= testFrequencies.length) {
+                endTest();
+                return;
+            }
+
+            playTone(testFrequencies[currentFrequencyIndex]);
+            document.getElementById('responseButtons').style.display = 'block';
+        }
+
+        function playTone(frequency) {
+            console.log('playTone called with frequency:', frequency);
+            var oscillator = audioContext.createOscillator();
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+
+            var gainNode = audioContext.createGain();
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.start();
+            setTimeout(() => oscillator.stop(), 1000); // Stop the oscillator after 1 second
+        }
+
+        function heardTone(heard) {
+            heardFrequencies.push({ frequency: testFrequencies[currentFrequencyIndex], heard: heard });
+            currentFrequencyIndex++;
+            document.getElementById('responseButtons').style.display = 'none'; // Hide response buttons until the next frequency is played
+            console.log("Current Frequency Index after response: ", currentFrequencyIndex, "Total Frequencies: ", testFrequencies.length);
+
+            if (currentFrequencyIndex >= testFrequencies.length) {
+                console.log("Ending test");
+                endTest(); // End test if all frequencies have been tested
+            } else {
+                console.log("Testing next frequency");
+                testNextFrequency(); // Continue to the next frequency
+            }
+        }
+        function endTest() {
+            isTestRunning = false;
+            document.getElementById('hearingTestButton').style.display = 'inline'; // Show the start button again
+            document.getElementById('responseButtons').style.display = 'none'; // Ensure response buttons are hidden
+
+            var message = analyzeHearing(heardFrequencies);
+            var finalResultContainer = document.getElementById('finalTestResult'); // Make sure this is the correct ID
+            if (finalResultContainer) {
+                finalResultContainer.textContent = message; // Update the text content of the results container
+            } else {
+                console.error('finalTestResult container not found'); // Error handling in case the element does not exist
+            }
+
+            
+            var hearingRange = analyzeHearing(heardFrequencies);
+
+        }
+                
+
+        function analyzeHearing(heardFrequencies) {
+            // Simplified analysis for demonstration
+            var lastHeardFrequencyData = heardFrequencies.reverse().find(f => f.heard);
+            var lastHeardFrequency = lastHeardFrequencyData ? lastHeardFrequencyData.frequency : 0;
+            var ageGroup = '';
+
+            if (lastHeardFrequency >= 16000) {
+                ageGroup = 'under 20';
+            } else if (lastHeardFrequency >= 8000) {
+                ageGroup = '20s to 30s';
+            } else if (lastHeardFrequency >= 4000) {
+                ageGroup = '40s to 50s';
+            } else {
+                ageGroup = '60s and above';
+            }
+                // Build the message string using the determined age group
+            var message = `Your hearing range is within the ${ageGroup} age range. Consult a medical professional if you are not within this age range.`;
+            
+            // Return the message so it can be used where the function is called
+            return message;
+         }
+
+         document.getElementById('dbForm').onsubmit = function(event) {
+            event.preventDefault(); // Prevent form from submitting the traditional way
+            const occupation = document.getElementById('occupation').value;
+            const input = document.getElementById('dbValues').value;
+            const dbValues = input.split(',').map(Number); // Convert input string to an array of numbers
+            const leqResult = LeqCalc(dbValues);
+
+            let resultText = `Leq for ${occupation}: ${leqResult.toFixed(2)} dB. `;
+            if (leqResult > OSHA_STANDARD) {
+                resultText += 'Your Leq is outside the OSHA standard for Leq. Please consult with a professional.';
+            } else {
+                resultText += 'Your Leq is within the safe range according to OSHA standards.';
+            }
+
+            document.getElementById('result').textContent = resultText;
+        };
+
+
+        function LeqCalc(lVals) {
+            let sumOfPowers = 0;
+
+            for (let l_i of lVals) {
+                sumOfPowers += Math.pow(10, l_i / 10);
+            }
+            let Leq = 10 * Math.log10(sumOfPowers / lVals.length);
+            return Leq;
+        }
+
+        });
+        
+    </script>
+</body>
+</html>
