@@ -1,0 +1,105 @@
+#container {
+    margin: 20px auto; /* Center the container */
+    width: 400px;
+    height: 400px;
+    position: relative;
+  }
+  
+  .Heading{
+    text-align: center !important;
+    margin-bottom: 20px;
+  }
+  .parent-container {
+    display: flex; /* Establishes a flex container */
+    flex-direction: row; /* Aligns children horizontally */
+    justify-content: space-around; /* Evenly spaces children with space around them */
+  
+    gap: 20px; /* Space between the children */
+  
+  }
+  
+  .container {
+    background-color: #fff; /* White background for each container */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px; /* Padding inside the container */ /* Spacing for when they wrap on small screens */
+    flex: 1 1 400px; /* Allows the container to grow and shrink as needed */
+    max-width: 45%; /* Maximum width of each container */
+    min-height: 100%; 
+  
+    box-sizing: content-box; /* Include padding and border in the element's total width */
+  }
+  
+  /* Remove any inline styles that may be conflicting with your CSS */
+  
+  /* ... [rest of your existing CSS] ... */
+  
+  
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern, readable font */
+    background-color: #f0f2f5; /* Light grey background for a soft look */
+    color: #333; /* Dark grey text for readability */
+    line-height: 1.6;
+    padding: 20px; /* Space around the content */
+  }
+  
+  button, .button {
+    display: inline-block;
+    background-color: #007bff; /* Vibrant blue background for primary buttons */
+    color: white; /* White text for contrast */
+    padding: 10px 20px; /* Spacing inside the button */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    text-align: center;
+  }
+  
+  button:hover, .button:hover {
+    background-color: #0056b3; /* Darker blue on hover for interaction feedback */
+  }
+  
+  
+  /* ... [rest of your existing CSS] ... */
+  
+  /* Adjustments for form inputs and button to be smaller and centered, with white backgrounds */
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 80%; /* Adjust width as needed */
+    max-width: 300px; /* Or any size you see fit */
+    margin: 10px auto; /* Center form elements */
+    display: block; /* Block display to stack vertically */
+    background-color: #fff; /* White background for inputs */
+  }
+  
+  input[type="submit"] {
+    width: 80%; /* Match the input width */
+    max-width: 300px; /* Or any size you see fit */
+    margin: 10px auto; /* Center button */
+    display: block; /* Ensure button is a block element to respect width */
+    background-color: #007bff; /* Original button color */
+    color: #fff; /* Text color for button */
+  }
+  
+  /* Ensure the form itself has a white background and is centered within the container */
+  form {
+    margin: 0 auto; /* Center the form */
+    width: calc(100% - 40px); /* Full width of container minus padding */
+    max-width: 400px; /* Max width of the form, can adjust as needed */
+    padding: 20px;
+    background-color: #fff; /* White background for the form container */
+    border-radius: 8px; /* Rounded corners for the form container */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  /* Additional adjustments can be made below to fine-tune your form's appearance */
+  
