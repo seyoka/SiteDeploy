@@ -4,77 +4,72 @@
     <meta charset="UTF-8">
     <title>Project Report</title>
     <style>
-        /*styles for writing*/
+        /* Base styling */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Roboto, sans-serif;
         }
 
         body {
-            font-family: "Times New Roman";
-            background-color: #F2F2F2;
-            font-size: large;
+            background-color: #fafafa;
+            color: #333;
+            line-height: 1.6;
+            font-size: 16px;
+            padding: 20px;
         }
 
         header {
+            background-color: #007BFF;
+            color: #ffffff;
+            padding: 20px 0;
             text-align: center;
             margin-bottom: 20px;
         }
-        /*styles for the navigation on side of page*/
+
+        /* Navigation styling */
         nav {
             position: fixed;
             top: 0;
             left: 0;
-            bottom: 0;
-            width: 200px;
-            background-color: #333;
-            color: #FFF;
+            width: 250px;
+            height: 100%;
+            background-color: #343a40;
+            color: #fff;
+            padding-top: 20px;
         }
 
         nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav ul li {
-            margin: 0;
-            padding: 0;
+            list-style-type: none;
         }
 
         nav ul li a {
-            display: block;
-            padding: 10px;
-            color: #FFF;
+            color: #ffffff;
             text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+            transition: background 0.3s ease;
         }
 
         nav ul li a:hover {
-            background-color: #555;
+            background-color: #007BFF;
         }
 
-        .wrapper {
-            margin: 0 auto;
-            overflow: hidden;
-        }
-
+        /* Main content styling */
         main {
-            margin-left: 220px;
+            margin-left: 270px;
             padding: 20px;
-            background-color: #FFF;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         h1, h2 {
-            color: #333;
+            color: #343a40;
+            margin-bottom: 10px;
         }
 
-        h2 {
-            margin-top: 20px;
-        }
-
-        p {
-            line-height: 1.5;
+        p, ul {
             margin-bottom: 20px;
         }
         /*centering for images that need it*/
@@ -568,7 +563,13 @@
                     <br/>
                     In my research I learned that the value the Microphone outputed was a continous ADC value. 
                     I orginally attempted to calibrate the mic by playing certain dB values and then recording the ADC assuming this would map linearly 
-                    i.e  ADC value would map perfectly to a dB and from that I could perform a conversion
+                    i.e  ADC value would map perfectly to a dB and from that I could perform a conversion. 
+                    <br/>
+                    <br/>
+                    <h4>ADC at dB data CSV</h4>
+                    <br/>
+
+                    <img src="image copy 10.png" style="width: 400px; height: auto; display: block; margin-left: 0;">
 
                     But I quickly found out that dB and ADC values do not map linearly so instead I would have to find 
                     another method to do the conversion
@@ -615,11 +616,11 @@
                     <br/>
                     <br/>
                     Following it was time to create the full system. I started with the embedded system as that was a 
-                    Key feature of project and the rest of it required on it. This code can be visualised here: 
-                    <img src="Embedded system final code.png" style="width: 600px; height: auto; margin-right: 0px">
+                    Key feature of project and the rest of it relied on it. This code can be visualised here: 
+                    <img src="Embedded system final code.png" style="width: 400px; height: auto; margin-right: 0px">
                     <br/>
                     <br/>
-                    <h3>Python/Javascript Model</h3>
+                    <h3>Python/Javascript Model:</h3>
                     <br/>
                     <br/>
                     As Arduino uses C++ I decided to use a seperate python script for data analysis. This is the 
@@ -627,19 +628,241 @@
                     <br/>
                     <br/>
 
-                    <img src="DataAnalysisFlowchart.png" style="width: 600px; height: auto; margin-right: 0px">
-                    <br/>
-                    One of the requirements i set out for the system was ease of use. In my opinion this would require me to 
-                    create a G.U.I (General User Interface). 
+                    <img src="DataAnalysisFlowchart.png" style="width: 400px; height: auto; margin-right: 0px">
                     <br/>
                     <br/>
-                    <h3>User Interface</h3>
+                    <h3>Data Validation</h3>
+                    I needed a method of storing the data. Since for my [G.U.I] I was going to be using 
+                    Java script I decided the best formatt for storing data was a JSON file (Java Script Object Notation). 
+                    This file formatt allows for more intutive and eloquent method of calling data. I think the syntax 
+                    is better and a better alternative to a CSV file 
+
                     <br/>
-                    <img src="image copy 3.png" style="width: 600px; height: auto; margin-right: 0px">
+                    <h3>Json Formatt:</h3>
+                    <br/>
+
+                    <img src="image copy 5.png" style="width: 600px; height: auto; margin-right: 0px">
                     <br/>
                     <br/>
-                    Following the completion of this, the next step for me was to find gather my own data and graph it to 
-                    perform personal predictions 
+                    I now needed a way to monitor the serial port, record the date, time, perform exposure calculation and calculate leq. I found 
+                    packages online that could monitor the serial port and record date and time but the other functions were too specific so I had to create 
+                    them myself. Which involved me taking their equation and converting it to a script. 
+                    <br/>
+                    <br/>
+                    <h3>Packages:</h3>
+                    <br/>
+                    <img src="image copy 6.png" style="width: 600px; height: auto; margin-right: 0px">
+                    <strong>Add documentation</strong> 
+                    <br/> 
+                    <h3>Custom Functions</h3> 
+
+                    <h4>Exposure Calc</h4>
+                    <br/>
+                    The first function I had to create was the exposure calculation based off this relationship table. 
+                    <br/>
+                    <img src="ExposureRelationship.png" style="width: 600px; height: auto; margin-right: 0px">
+                    <strong><a href="https://www.cdc.gov/niosh/topics/noise/noise.html#:~:text=NIOSH%20established%20a%20recommended%20exposure,loss%20over%20their%20working%20lifetime.">NIOSH exposure Rel</a></strong>
+                    <br/>
+                    <br/>
+                    I could find not standard mathematical notation for this equation so I wrote one and completed the function 
+                    <br/>
+                    <br/>
+                    <h4>Equation and function</h4>
+                    <div style="display: flex; justify-content: start;">
+                      <img src="image copy 7.png" style="width: 600px; height: auto; margin-right: 10px;">
+                      <img src="image copy 8.png" style="width: 600px; height: auto;">
+                  </div>
+                  <strong>Add made with overleaf</strong>
+                  <br/>
+                  <br/> 
+                  <h4>Leq Calc</h4>
+                  <br/>
+                  The Leq calculation was very easy to do. I found a seperate approximation equation that 
+                  would work perfectly for this project and then watched a youtube vid explaining it. This 
+                  Made it very easy to convert into a python script. 
+                  <br/>
+                  <h4>Equation and function:</h4>
+                  <div style="display: flex; justify-content: start;">
+                    <img src="Leq equation.png" style="width: auto; height: auto; margin-right: 10px;">
+                    <img src="image copy 9.png" style="width: 600px; height: auto;">
+                  </div>
+                  <br/>
+                  <br/>
+                  <strong><a href="https://www.youtube.com/watch?v=K-tzydTuGeg">Explanation</a></strong>
+
+
+                    <br/>
+                    <h3>Personal data</h3> 
+                    With the core functionality in place I was able to record my own personal data. 
+                    Whenever I came home from school I would turn on my system and the script would activate recording 
+                    the data for two hours then saving the data to the universal JSON. 
+                    <br/>
+
+                    I started on the <strong>2024-02-09</strong> and finished recording data on the <strong>2024-03-11</strong>
+                    This was a sufficient time period to perform data analysis 
+                    
+
+
+                    <br/>
+                    <h3>Average Values table:</h3>
+                    <table border="1">
+                      <tr>
+                        <th>Weeks</th>
+                        <th>Average dB</th>
+                        <th>Average Leq</th>
+                        <th>Average Noise exposure</th>
+                        <th>Hearing test results</th>
+                      </tr>
+                      <tr>
+                        <td>Week 1</td>
+                        <td>88.09</td>
+                        <td>76.92</td>
+                        <td>49.9</td>
+                        <td>In range</td>
+                      </tr>
+                      <tr>
+                        <td>Week 2</td>
+                        <td>89.62</td>
+                        <td>78.53</td>
+                        <td>66.4</td>
+                        <td>In range</td>
+                      </tr>
+                      <tr>
+                        <td>Week 3</td>
+                        <td>89.1</td>
+                        <td>76.73</td>
+                        <td>64.15</td>
+                        <td>In range</td>
+                      </tr>
+                      <tr>
+                        <td>Week 4</td>
+                        <td>88.77</td>
+                        <td>77.415</td>
+                        <td>61.14</td>
+                        <td>In range</td>
+                      </tr>
+                      <tr>
+                        <td>Week 5</td>
+                        <td>86.88</td>
+                        <td>75.8</td>
+                        <td>41.84</td>
+                        <td>In range</td>
+                      </tr>
+                      <tr>
+                        <td>Week 6</td>
+                        <td>87.17</td>
+                        <td>77.37</td>
+                        <td>45.11</td>
+                        <td>In range</td>
+                      </tr>
+                      <tr>
+                        <td>Overall Averages</td>
+                        <td>85.45</td>
+                        <td>75.83</td>
+                        <td>49.73</td>
+                        <td>In range</td>
+                      </tr>
+                    </table>
+                    
+                    <br/>
+                    <br/>
+                    From this table i was able to graph
+                    my average exposures over the 5 week period. (in range for hearing test means I was in my age range).
+                    <br/>
+                    <h3>Average Values chart:</h3>
+                    <img src="AverageVals chart.png" style="width: 600px; height: auto; margin-right: 0px"> 
+                    <br/>
+                    <br/>
+                    <h3>G.U.I</h3>
+                    <br/>
+                    since I had made the funxctions in python and JS is my strongest language the conversion was very easy.
+                    One of the requirements I set for my self was Universal UI. With that in that in mind I designed this 
+                    Sleek User interface. 
+                    <br/>
+                    <img src="image copy 3.png" style="width: 600px; height: auto; margin-right: 0px ">
+
+                    <br/> 
+                    Additionally I implemented a progress ring and an api to play different tones so I could show the daily noise exposure percent and perform the hearing 
+                    test.
+                    <br/>
+                    <div style="display: flex; justify-content: start;">
+                      <img src="image copy 12.png" style="width: 600px; height: auto; margin-right: 10px;">
+                      <img src="image copy 11.png" style="width: 600px; height: auto;">
+                    </div>
+                    <strong>Documentation</strong>
+
+
+      
+                    <br/>
+                    
+                    <h3>Testing</h3>
+                    <br/>
+
+                    Now that all the secondary components were in place it was time to begin testing the system as a whole.
+                    From my study of computer science i learned various testing methods and now I had a chance to employ them. 
+                    I had already employed a <strong>Unit Test</strong> on my microphone and now it was time to do the same for individual 
+                    components of my project and then finally ending the testing with a <strong>System test</strong> I performed a unit test on each overall component and displayed 
+                    that here
+                    <br/> 
+                    <table border="1">
+                      <tr>
+                        <th>Function</th>
+                        <th>Input</th>
+                        <th>Output</th>
+                        <th>Expected Output</th>
+                        <th>Pass/Fail</th>
+                      </tr>
+                      <tr>
+                        <td>Embedded system</td>
+                        <td>Button and ADC value</td>
+                        <td>dB on LCD</td>
+                        <td>dB on LCD</td>
+                        <td>Pass</td>
+                      </tr>
+                      <tr>
+                        <td>Embedded system analysis</td>
+                        <td>dB</td>
+                        <td>JSON in correct format with accurate info</td>
+                        <td>JSON in correct format with accurate info</td>
+                        <td>Pass</td>
+                      </tr>
+                      <tr>
+                        <td>G.U.I</td>
+                        <td>Average Leq, Average dB, Average exposure %, Gender, Age, Occupation</td>
+                        <td>Predictions and Progress Ring Chart (Progress Ring doesn't work)</td>
+                        <td>Predictions and Working Progress Ring Chart</td>
+                        <td>Fail (Progress Ring)</td>
+                      </tr>
+                    </table>
+                    <br/>
+                    the progress ring failed the system test. So i decided to separate it and perform a unit test: 
+
+                    <h3>Progress ring error:</h3>
+                    <br/>
+                    <img src="ProgressRing_testing.png" style="width: 600px; height: auto;">
+                    <br/>
+                    <br/>
+                    I used a try function to see if the issue was the bar initialization. 
+                    <br/>
+                    <img src="image copy 14.png" style="width: 600px; height: auto; margin-right: 10px;">
+                    <img src="image.png" style="width: 400px; height: auto; margin-right: 10px;">
+                    I have found my issue now its time to find a solution. I copied the error message online and 
+                    found out that i need to wait for the page to load and that can be achieved with this line 
+                    ' document.addEventListener('DOMContentLoaded', function()' which waits for the content to load. 
+
+                    
+                    
+
+
+
+                
+                    
+
+
+                    
+
+
+
 
                     
                 
