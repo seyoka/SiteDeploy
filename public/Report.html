@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Project Report</title>
+    <style>
+        /*styles for writing*/
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Times New Roman";
+            background-color: #F2F2F2;
+            font-size: large;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        /*styles for the navigation on side of page*/
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 200px;
+            background-color: #333;
+            color: #FFF;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 10px;
+            color: #FFF;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            background-color: #555;
+        }
+
+        .wrapper {
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        main {
+            margin-left: 220px;
+            padding: 20px;
+            background-color: #FFF;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        p {
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        /*centering for images that need it*/
+        .img-container {
+            text-align: center;
+        }
+        #center {
+            display: block;
+            margin: 0 auto;
+        }
+        /*styles for tables*/
+        table {
+            border-collapse: collapse;
+        }
+        .center-table {
+            margin-right: auto;
+            margin-left: auto;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #DDD;
+        }
+
+        .gantt-chart .container {
+    max-width: 1200px;
+    min-width: 650px;
+    margin: 0 auto;
+    padding: 50px;      
+    }
+
+.gantt-chart .chart {
+  display: grid;
+  border: 2px solid #000;
+  position: relative;
+  overflow: hidden;  
+}
+
+.gantt-chart .chart-row {
+  display: grid;      
+  grid-template-columns: 50px 1fr 1fr 1fr 1fr; /* Adjusted for 4 columns */
+  background-color: #DCDCDC;
+}
+
+.gantt-chart .chart-row:nth-child(odd) {
+  background-color: #C0C0C0;
+}
+
+.gantt-chart .chart-period {
+  color: #fff;
+  background-color: #708090;
+  border-bottom: 2px solid #000; 
+  grid-template-columns: 50px 1fr 1fr 1fr 1fr; /* Adjusted for 4 months */
+}
+
+.gantt-chart .chart-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  grid-template-columns: 50px 1fr 1fr 1fr 1fr; /* Adjusted for 4 months */
+  z-index: 1; /* Ensure the lines are under the text */
+}
+
+.gantt-chart .chart-period > span,
+.gantt-chart .chart-lines > span {
+  border-right: 1px solid #000; /* Border color for lines */
+  text-align: center;
+  font-size: 13px;
+  align-self: center;
+  font-weight: bold;
+  padding: 15px 0;    
+}
+
+.gantt-chart .chart-row-item {
+  background-color: #808080;
+  border: 1px solid #000;
+  border-top: 0;
+  border-left: 0;      
+  padding: 20px 0;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.gantt-chart .chart-row-bars {
+  list-style: none;
+  display: grid;
+  padding: 15px 0;
+  margin: 0;
+  grid-template-columns: repeat(4, 1fr); /* Adjusted for 4 months */
+  grid-gap: 10px;
+  border-bottom: 1px solid #000;
+  position: relative; /* Bring above the grid lines */
+  z-index: 2; /* Ensure the bars are above the lines */
+}
+
+.gantt-chart li {
+  font-weight: 450;
+  text-align: left;
+  font-size: 15px;
+  min-height: 15px;
+  background-color: #708090;
+  padding: 5px 15px;
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  border-radius: 15px;
+  /* Set grid column start and end based on the task's timeline */
+}
+
+/* ... Your styles for individual list items ... */
+
+
+
+.gantt-chart ul .chart-li-one {
+  grid-column: 1/2; 
+  background-color:#588BAE;
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Project Report</h1>
+    </header>
+    <div class="wrapper">
+        <nav>
+            <!--Hyperlinks to sections in the report, so they can be clicked and bring user straight to them-->
+            <ul>
+                <li><a href="#meeting-the-brief">Meeting the Brief</a></li>
+                <li><a href="#investigation-and-plan">Investigation and Plan</a></li>
+                <li><a href="#design">Design</a></li>
+                <li><a href="Create">Create</a></li>
+                <li><a href="#evaluation">Evaluation</a></li>
+                <li><a href="#references">References</a></li>
+                <li><a href="#summary-word-count">Summary Word Count</a></li>
+            </ul>
+        </nav>
+        <main>
+            <!-- Meeting the brief section -->
+            <section id="meeting-the-brief">
+                <h2>Meeting the Brief</h2>
+                <p>placeholder</p>
+            </section>
+            <!-- Investigation and planning section -->
+            <section id="investigation-and-plan">
+                <h2>Investigation and Plan</h2>
+                <p> My understanding of this years brief is I need to address an aspect of health or wellbeing
+                    while having an embedded system that can take in continous or discrete data and have a model that can make sometype of predictions based on information ascertained 
+                    and a key component of that is it must be able to answer a 'what if question'.
+                    The key citrea I must include within my Project are as follows;
+                    <ul>Automated system 
+                    <ul>Data validation and storage</ul>
+                    <ul>Analysis component</ul>
+                    <ul>Computer model</ul>
+                    <ul>Can answer a what if question</ul>
+                    <ul>Can have a graphical display</ul>
+                    <br/>
+                    Following this I completed a mind map of some ideas and then compared them against each other under the citrea:
+                    <br/>
+                    <img src="Mind Map Template (Copy).jpg" style="width: 600px; height: auto;">
+
+                    <table>
+                        <tr>
+                        <th>Idea/Feature</th>
+                        <th>Automated System</th>
+                        <th>Data Validation & Storage</th>
+                        <th>Analysis Component</th>
+                        <th>Computer Model</th>
+                        <th>"What If" Question</th>
+                        <th>Graphical Display</th>
+                        <th>Total</th>
+                        </tr>
+                        <tr>
+                        <td>Habit Tracker System</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>15</td>
+                        </tr>
+                        <tr>
+                        <td>Study Focus Monitor</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>19</td>
+                        </tr>
+                        <tr>
+                        <td>Mood Tracker</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>20</td>
+                        </tr>
+                        <tr>
+                        <td>Calorie Tracker</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>5</td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>27</td>
+                        </tr>
+                        <tr>
+                        <td>Decibel Level Detector</td>
+                        <td>5</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>20</td>
+                        </tr>
+                        <tr>
+                        <td>Decibel Level Exposure Calculation</td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>5</td>
+                        <td>5</td>
+                        <td>4</td>
+                        <td>27</td>
+                        </tr>
+                        <tr>
+                        <td>Stress Management</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>18</td>
+                        </tr>
+                        <tr>
+                        <td>Tracking Sleep Habits</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>19</td>
+                        </tr>
+                        <tr>
+                        <td>Fitness Improvement Tracker</td>
+                        <td>5</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>27</td>
+                        </tr>
+                        <tr>
+                        <td>IoT Pantry</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>14</td>
+                        </tr>
+                        <tr>
+                        <td>Step Counter to Track Calories Burned</td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>21</td>
+                        </tr>
+                    </table>
+  
+                    <br/>
+                    <br/>
+                    I then conducted a survey amongst my peers with the ideas from the mindmap
+                    <img src="Embedded system survey.png" style="width: 800px; height: auto;"> 
+                    <br/>
+                    <br/>
+                    From these tests the area I decided to combine the areas of the hearing element into one system  (decibel levels on the human ear). 
+                    Noise pollution is a major issue in todays society. According to the NCBI around 6.1% of the world population 
+                    develops permentant hearing loss due to preventable Noise exposure
+                    <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6796666/#:~:text=The%20most%20recent%20WHO%20estimate,disabling%20hearing%20loss%20in%202018.&text=This%20estimate%20is%20projected%20to,over%20900%20million%20by%202050.">lol</a>
+                        
+                    <br/>
+                    <br/>
+
+                    I researched existing systems that take in decibels and large data sets relating to the topic.
+                    This led me to study and investigate the area of olarynotogology which is the study of the throat and ear.
+                    From this I ascertined that In order to use certain data sets I would need to calculate Laeq
+                    which can be done from a series dB-A values (A-weighted Decibel levels which attempt to account for the varying sensitivity of the Human Ear). 
+                    I am also calculating the noise exposure percentage based on the NIOSH reference. I would also need to monitor my ear health with hearing tests in the G.U.I
+                    <br/>
+                    <a href="https://blogs.cdc.gov/niosh-science-blog/2016/02/08/noise/">NIOSH reference</a><br/>
+                    <a href="https://www.osha.gov/noise">Leq standard</a>
+
+
+                    <br/>
+                    <br/>
+                    The reasoning for using Laeq (A-weighted Equivalent Continous Sound Pressure Level).This is the standard measurement for
+                    Data sets relating to the effects of noise on the ear. I also need to perform a hearing test within the G.U.I as a reference for my hearing health
+                    <br/> 
+                    <a href="https://www.researchgate.net/figure/The-hearing-test-user-interface-that-allows-an-audiologist-to-remotely-operate-the_fig3_38081171">Heres what a professional version would look like</a>
+                    <br/>
+                    <br/>
+
+
+                    To calculate these measurements I would have to construct an Sound Pressure Level (SPL) meter. This device takes in sound pressure readings then converts them to 
+                    dB using a series of calculations carried out by a 8-bit micro-controller 
+                    A typical SPL meter 
+                    <strong>Add reference</strong>
+
+                    <img src="10360610a.jpg"  style="width: 400px; height: auto;">
+
+
+
+                    <br/>
+                    <br/> 
+
+
+                    <br/>
+                    <br/>
+                    The user interface should have a universal design. I want it to look nice and sleek 
+                    while also being accesible, intutive and easy to use. One ethical concern I have about the 
+                    Model is the data it is gathering. Some people may not want their personal data being tracked so 
+                    for that reason the model will store no user data externally instead only temporarily storing it on the users device.  
+                    <br/>
+                    <br/>
+                    Some personal goals I have for this project are:
+                    <li>Fully functional circuit that can calculate dB-A and LAeq</li>
+                    <li>Sleekly designed GUI with insightful graphs with a good UX using HTML, CSS and JS</li>
+                    <li>To learn more about the area of Otolaryngology to see if I enjoy computational Biology</li>
+                    <li>Using statistics and probability to make predictions on sound exposure with my model</li>
+                </p>
+            </section>
+            <!-- Design section -->
+            <section id="design">
+                <h2>Design</h2>
+                <img src="iteration-waterfall.jpeg"  style="width: 600px; height: auto;">
+
+                <p>
+                    <h2>Plan</h2>
+                    The artefacts in this project were designed using the iterative design procress 
+                    I went with a mixture of the agile and waterfull procress. This was chosen as I felt it was the 
+                    best approach to effectively create and implement features without wasting time as parts of the Project could be developed independently 
+                    whereas others require other elements. From this I decided to create a gantt chart to layout the project in this formatt
+                    <br/>
+                    <br/> 
+           
+                     
+                    <div class="gantt-chart">
+                        <div class="chart">
+                          <div class="chart-row chart-period">
+                            <div class="chart-row-item"></div>
+                            <span>December</span><span>January</span><span>February</span><span>March</span>
+                          </div>
+                          <div class="chart-row chart-lines">
+                            <span></span><span></span><span></span><span></span><span></span> <!-- Five spans for grid lines -->
+                          </div>
+                          <div class="chart-row">
+                            <div class="chart-row-item">1</div>
+                            <ul class="chart-row-bars">
+                              <li class="chart-li-one" style="grid-column: 1 / span 5;">Investigation and plan</li>
+                            </ul>
+                          </div>
+            
+                          <div class="chart-row">
+                            <div class="chart-row-item" >2</div>
+                            <ul class="chart-row-bars">
+                              <li class="chart-li-two" style='grid-column: 40/ span 40'>Design</li>
+                            </ul>
+                          </div>
+                          <div class="chart-row">
+                            <div class="chart-row-item">3</div>
+                            <ul class="chart-row-bars">
+                              <li class="chart-li-three" style='grid-column: 60/ span 40'>implement</li>
+                            </ul>
+                          </div>
+                          <div class="chart-row">
+                            <div class="chart-row-item">4</div>
+                            <ul class="chart-row-bars">
+                              <li class="chart-li-four" style='grid-column: 90/ span 40'>Testing</li>
+                            </ul>
+                          </div>
+                          <div class="chart-row">
+                            <div class="chart-row-item">5</div>
+                            <ul class="chart-row-bars">
+                              <li class="chart-li-five" style='grid-column: 120/ span 40'>Report</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      
+                    
+                      <br/>
+                      <br/>
+                    <h3>Choosing the Embedded System</h3>
+                    <p>The following options for embedded systems are:</p>
+                    <ul>
+                      <li>Microbit: Simple, yet lacks advanced features.</li>
+                      <li>Arduino: Complex language, highly compatible.</li>
+                      <li>Raspberry Pi: Expensive, powerful, uses Python.</li>
+                    </ul>  
+                    <br/>
+                    <br/>
+                    <p>I decided to go with an arduino as its the system I have the most experience and expertise with. This would make developping the system as a whole alot easier</p>
+                    <br/>
+                    <br/> 
+                    <h2>Needed components</h2>
+                    <ul>
+                        <li>Microphone
+                          <ul>
+                            <li>Allows me to record the ADC value</li>
+                          </ul>
+                        </li>
+                        <li>LCD 
+                          <ul>
+                            <li>Allows me to display the dB value</li>
+                          </ul>
+                        </li>
+                        <li>Button
+                          <ul>
+                            <li style="margin-left: 40;">Allows me to start and end the test</li>
+                          </ul>
+                        </li>
+                      </ul>
+                 
+                    <h2>
+                        Meeting brief requirements
+                    </h2>
+                    <strong>1.</strong>. 
+                    <li>To record a series of dB values and display them</li>
+                    <strong>2.</strong>
+                    <li>To calculate Leq, Noise calculation exposure and make predictions based on those values</li>
+                    <br/>
+                    <br/>
+                    <h2>Design</h2> 
+                        understanding the requirements of my system i will lay out the basic system design with flowcharts 
+                        <br/>
+                        <br/>
+                        <h3 style="text-underline-position: below;">Initial <strong>Decomposition</strong></h3>
+                        <img src="WBS- Comp Sci.jpeg" style="width: 600px; height: auto;">
+                        <br/>
+                        <br/>
+                        <h3>Embedded system flowchart</h3>
+                            <img src="EmbeddedSystemSimpleFlowchart.jpeg" style="width: 600px; height: auto;">
+                        <h3>Embedded system analysis flowchart:</h3>
+                        <img src="Embedded system analysis code .jpeg" style="width: 800px; height: auto;">
+                        <h3>G.U.I / Model</h3>
+                        <img src="ModelFlowChart.jpeg" style="width: 800px; height: auto;">
+                    </p>
+            </section>
+            <!-- Implementation section -->
+            <section id="Create">
+                <h2>Create</h2>
+                <p>
+                    <h3>Weekly log</h3>
+                    <p><strong>Fill Later</strong></p>
+                    <br/>
+                    <br/>
+                    <h3>Embedded System</h3>
+                    I ordered the following components:
+                    <li><a href="https://arduinomodules.info/ky-037-high-sensitivity-sound-detection-module/">KY-037 microphone</a></li>
+                    <li><a href="https://www.amazon.co.uk/AZDelivery-HD44780-Display-Characters-Arduino/dp/B07JH6GHPR/ref=sr_1_3?crid=21K3ACMCDW91U&dib=eyJ2IjoiMSJ9.akBKxHGpanFncX7_-7GlNbxcwUUAXpeey4a7sIxuXi1a4p-lj8QXvLAPOIvF4sYpfo2HQD3t5tj2ffAQc6O4rzmqj8dbAFXBRR1BjCKs3w90IoqyKs1JhdCvP0A6Sm60aPxI74aj3QMu_vo60ZuJAgK_-FXredGiQtwfvdRbyuHRQC_Y9Hd0eNpcBEKg-UrM2svkk-Rn9Cj0xKfaHtRsQNROBe6G3ja58nf3GlpDto4.OefhG3i-HX4oPlXanXhSbJo5xpoHDIQthVw00c4VU5w&dib_tag=se&keywords=lcd%2Bdisplay&qid=1710183199&sprefix=lcd%2Bdisplay%2B%2Caps%2C111&sr=8-3&th=1">LCD display with 12C adapter </a></li>
+                    <li><a href="https://www.amazon.co.uk/HUAREW-Breadboard-Solderless-Electrical-Connections/dp/B0B5TDMNVK/ref=sr_1_19_sspa?dib=eyJ2IjoiMSJ9.DuMW_vRTI3dUZFnYfWL_RhqYCYM2uO9BN7issu70SdK6Tg3cCI8fHtpOxdmGgJpSm0eQpqPyRngCcE9z6l9ImQ2wSDgvdihf9R1S1UHiiRAINz_jtLNVTqHBJYLebfz1fCCbrWEud2KLjbcDgiGI9v_0yf28LgIrNOYmWL8SIJy2yy3ztm_3whoMt6JQDwBEzrqh4-1t9lDVDACw1nOTioEnW7CIFVKc7BKQy0LqQof6xPJYvD1DjjiJc5ruDpQstdCFk7LaWy1-ALD8y6JtbpjcwWhjBJkJVIMiQ4URvYs.6d-IOokbsCumHrAuNwQcn0XNNcL1lpr4IOGpYlge7w4&dib_tag=se&keywords=Solderless+Breadboard&qid=1710613761&sr=8-19-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9tdGY&psc=1">Solderless bread boards</a></li>
+      
+                    <br/>
+                    <h3>Microphone Testing</h3>
+                    <br/>
+                    <br/>
+                    In my research I learned that the value the Microphone outputed was a continous ADC value. 
+                    I orginally attempted to calibrate the mic by playing certain dB values and then recording the ADC assuming this would map linearly 
+                    i.e  ADC value would map perfectly to a dB and from that I could perform a conversion
+
+                    But I quickly found out that dB and ADC values do not map linearly so instead I would have to find 
+                    another method to do the conversion
+                    <br/>
+                    <br/> 
+                    <img src="ADC mapped to dB.png">
+                    <br/>
+                    I first attempted to use this equation:
+                    <br/>
+                    <img src="CircuitdB_equation.png" style="width: 200px; height: auto;">
+                    <br/> 
+                    But due to the mircophone not being super percise this method did not work. 
+                    <br/>
+                    <br/> 
+                    <h3>Linear regression</h3>
+                    I researched other methods online and found out that my best bet was to use linear regression 
+                    as it would produce a line that would be able to map the ADC and dB. 
+                    <br/> 
+                    
+                    From this line i could extract a Y value for any X value using the intercept and slope with this equation. 
+                    <img src="image copy.png" style="width: 600px; height: auto; display: block; margin-left: 0;">
+                    <br/>
+                    <br/>
+                    so my dB conversion equation became:
+                    <img src="image copy 2.png" style='width: 400px; height: auto; display: block; margin-left: 0;'>
+                    <br/>
+                    <br/> 
+                    and this worked perfectly so now my dB and ADC values perfectly matched accurately 
+                    <h3>Regression line</h3>
+                    <img src="Regression_Line.png" style='width: 400px; height: auto; display: block; margin-left: 0;'>
+                    <img src="dB_Accuracy .jpeg" style="width: 400px; height: auto; display: block; margin-left: 0;">
+                    <br/>
+                    <br/>
+                    <h3>Circuit</h3>
+                    
+                    After this Unit test I then fully constructed the circuit and made this circuit diagram for documentation 
+                    <br/>
+                    <div style="display: flex; justify-content: start;">
+                        <img src="Circuit diagram.png" style="width: 600px; height: auto; margin-right: 10px;">
+                        <img src="PhysicalCircuit.png" style="width: 600px; height: auto;">
+                    </div>
+
+                    <strong>Add docuentation for each component</strong>
+                    <br/>
+                    <br/>
+                    Following it was time to create the full system. I started with the embedded system as that was a 
+                    Key feature of project and the rest of it required on it. This code can be visualised here: 
+                    <img src="Embedded system final code.png" style="width: 600px; height: auto; margin-right: 0px">
+                    <br/>
+                    <br/>
+                    <h3>Python/Javascript Model</h3>
+                    <br/>
+                    <br/>
+                    As Arduino uses C++ I decided to use a seperate python script for data analysis. This is the 
+                    visualisation of the script: 
+                    <br/>
+                    <br/>
+
+                    <img src="DataAnalysisFlowchart.png" style="width: 600px; height: auto; margin-right: 0px">
+                    <br/>
+                    One of the requirements i set out for the system was ease of use. In my opinion this would require me to 
+                    create a G.U.I (General User Interface). 
+                    <br/>
+                    <br/>
+                    <h3>User Interface</h3>
+                    <br/>
+                    <img src="image copy 3.png" style="width: 600px; height: auto; margin-right: 0px">
+                    <br/>
+                    <br/>
+                    Following the completion of this, the next step for me was to find gather my own data and graph it to 
+                    perform personal predictions 
+
+                    
+                
+
+
+
+
+                </p>
+            </section>
+
+            <!-- Evaluation section -->
+            <section id="evaluation">
+                <h2>Evaluation</h2>
+                <p>placeholder</p>
+            </section>
+            <!-- References section -->
+            <section id="references">
+                <h2>References</h2>
+                <p>placeholder</p>
+            </section>
+        </main>
+    </body>
+    </html>

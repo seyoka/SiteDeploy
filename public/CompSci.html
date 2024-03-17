@@ -6,7 +6,7 @@
     <title>Computer Science G.U.I</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.0.1/progressbar.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="CompSci.css">
+    <link rel="stylesheet" href="index.css">
 
 </head>
 <body>
@@ -19,9 +19,12 @@
             <input type="number" id="exposureLevel" placeholder="Enter dB level">
             <label for="exposureTime">Exposure Time (minutes):</label>
             <input type="number" id="exposureTime" placeholder="Enter time in minutes">
+            <label for="exposureTime">Average Exopsure percentage: </label>
+            <input type="number" id="Average" placeholder="Enter percentage">
             <button id="doseCalculateButton">Calculate</button>
-            <div id="container"  style="width: 200px; height: 200px; margin-top: 10px;"></div> <!-- This id should be unique -->
+            <div id="container"  style="width: 200px; height: 200px; margin-top: 10px;"></div> 
             <p id="doseResult"></p>
+            <p id="diffDose"></p>
         </div>
 
 
@@ -33,6 +36,13 @@
                 <option value="female">Female</option>
                 <option value="male">Male</option>
 
+            </select>
+
+            <label for="Muscian">Do you Frequently play an Instrument?</label>
+            <select id="muscian">
+                <option value=""></option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
             </select>
     
             <!-- Age input -->
@@ -64,19 +74,31 @@
                         <option value="Electrician">Electrician</option>
                     </select>
 
+                    <label for="averageLeq">Enter your average Leq:</label>
+                    <input type="text" id="averageLeq" name="averageLeq" required><br><br>
                     <label for="dbValues">Enter dB values (separated by commas):</label>
                     <input type="text" id="dbValues" placeholder="44, 53, 67, ..." required>
                     <button type="submit">Calculate Leq</button>
                 </form>
                 <h1 style="margin-top: 20px;">Leq Results</h1>
                 <p id="result">Result will appear here </p>
+                <p id="leqComparisonResult"></p>
         </div>
     </div>
-
+    <div class="parent-graph-container">
+        <div class="graphcontainer">
+            <canvas id="myChart" width="400" height="400"></canvas>
+            <p id="resultNormal" style="font-weight: bold;"></p>
+        </div>
+        <div class="graphcontainer">
+            <h1>Hearing threshold loss Prediction:</h1>
+            <ul id="hearingLossList" style="padding-left: 5%;"></ul>
+        </div>
 
 
     <script>
-        const OSHA_STANDARD= 85; // Declare it globally once
+        const OSHA_STANDARD= 85; // Declared gobally otherwise it wont work idk why
+        const populationScores = [65, 70, 75, 80, 85, 90, 95, 100, 105]; 
 
 
 
@@ -102,11 +124,13 @@
         function calculateAndDisplayNoiseDose() {
             var exposureLevel = parseFloat(document.getElementById('exposureLevel').value);
             var exposureTime = parseFloat(document.getElementById('exposureTime').value);
+            const averageExposurePercent = parseFloat(document.getElementById('Average').value);
+           
 
             var referenceLevel = 85; // dB(A)
             var referenceTime = 8 * 60; // minutes
 
-            if (isNaN(exposureLevel) || isNaN(exposureTime)) {
+            if (isNaN(exposureLevel) || isNaN(exposureTime) || isNaN(averageExposurePercent)) {
                 alert("Please enter valid numbers for both exposure level and time.");
                 return;
             }
@@ -127,10 +151,22 @@
             document.getElementById('doseResult').innerText = "You have been exposed to " + dosePercentage.toFixed(2) + 
                 "% of your daily noise dose limit. You can safely be exposed to an additional " + remainingPercentage.toFixed(2) + 
                 "% of your daily noise dose limit.";
+
+            var doseResultMessage = '';
+            if (averageExposurePercent < dosePercentage){
+                var doseDifference = dosePercentage - averageExposurePercent;
+                doseResultMessage += `You are above average for your dose percentage by ${doseDifference.toFixed(2)}% today. If this trend continues, you will increase your chance of hearing loss.`;
+            }
+            else{ 
+                var doseDifference = averageExposurePercent - dosePercentage;
+                doseResultMessage += `You are below average your average dose percentage by ${doseDifference.toFixed(2)}%. This is a positive trend lowering your chance of hearing loss.`;
+            }
+
+            document.getElementById('diffDose').textContent = doseResultMessage;
+
         }
 
-
-        document.getElementById('hearingTestButton').addEventListener('click', startHearingTest);
+        document.getElementById('hearingTestButton').addEventListener('click',  handleHearingTestButtonClick);
         document.getElementById('heardYes').addEventListener('click', () => heardTone(true));
         document.getElementById('heardNo').addEventListener('click', () => heardTone(false));
 
@@ -188,10 +224,15 @@
             document.getElementById('hearingTestButton').style.display = 'inline'; // Show the start button again
             document.getElementById('responseButtons').style.display = 'none'; // Ensure response buttons are hidden
 
+            gender = document.getElementById('gender').value;
+            age = parseInt(document.getElementById('age').value, 10);
+            muscian = document.getElementById('muscian').value;
+
             var message = analyzeHearing(heardFrequencies);
             var finalResultContainer = document.getElementById('finalTestResult'); // Make sure this is the correct ID
+            
             if (finalResultContainer) {
-                finalResultContainer.textContent = message; // Update the text content of the results container
+                finalResultContainer.innerHTML = message; // Update the text content of the results container
             } else {
                 console.error('finalTestResult container not found'); // Error handling in case the element does not exist
             }
@@ -218,18 +259,52 @@
                 ageGroup = '60s and above';
             }
                 // Build the message string using the determined age group
+            
+            
             var message = `Your hearing range is within the ${ageGroup} age range. Consult a medical professional if you are not within this age range.`;
+         
+            
+            if (gender === 'male' && age >= 20 && age <= 59) {
+             message += "\n <strong> Note: Men are almost twice as likely as women to have hearing loss among adults ages 20-69. You fall within this range</strong>";
+             }
+
+            if (age > 60) {
+                message += "\n <strong> Note: This is the stage of life where you experience the most hearing loss within this age range your hearing will decrease by 30%</strong>"
+            }
+            if (muscian === 'yes') {
+                message += "\n  <strong> Note: Muscians are 1.5x more suspceptile to hearing loss</strong>"
+            }
+
+
             
             // Return the message so it can be used where the function is called
             return message;
          }
 
+         function handleHearingTestButtonClick() {
+
+            if (gender === '') {
+                alert('Please select your gender.');
+                return; // Stop the function if gender is not selected
+            }
+
+            if (age <= 0) {
+                alert('Please enter a valid age.');
+                return; // Stop the function if age is not valid
+            }
+
+                startHearingTest();
+                estimateHearingLoss();
+            }
+
          document.getElementById('dbForm').onsubmit = function(event) {
-            event.preventDefault(); // Prevent form from submitting the traditional way
+            event.preventDefault(); 
             const occupation = document.getElementById('occupation').value;
             const input = document.getElementById('dbValues').value;
             const dbValues = input.split(',').map(Number); // Convert input string to an array of numbers
             const leqResult = LeqCalc(dbValues);
+
+            const [riskLevel, probability] = detailed_hearing_loss_risk_with_probabilities(leqResult);
 
             let resultText = `Leq for ${occupation}: ${leqResult.toFixed(2)} dB. `;
             if (leqResult > OSHA_STANDARD) {
@@ -238,8 +313,45 @@
                 resultText += 'Your Leq is within the safe range according to OSHA standards.';
             }
 
+            // Add risk and probability to the result text
+            if (probability !== null) {
+                resultText += ` There is a ${probability}% probability of hearing loss based on your Leq of ${leqResult.toFixed(2)} dB, classified as ${riskLevel}.`;
+            } else {
+                resultText += " Risk level could not be determined due to unknown Leq value.";
+            }
+
+            handleLeqComparison(leqResult);
+            
             document.getElementById('result').textContent = resultText;
+
+            const percentile = calculatePercentile(leqResult);
+            plotChart(percentile);
         };
+
+        function handleLeqComparison(currentLeq) {
+            const averageLeq = parseFloat(document.getElementById('averageLeq').value);
+        
+            if (isNaN(averageLeq) || isNaN(currentLeq)) {
+                alert("Please enter valid numbers for average Leq and current Leq.");
+                return;
+            }
+            
+            // Calculate the difference and decide if the user is within or outside the average
+            const leqDifference = currentLeq - averageLeq;
+            let comparisonResult = `Your current Leq of ${currentLeq.toFixed(2)} dB `;
+            
+            // Decide the trend based on the difference
+            if (leqDifference > 0) {
+                comparisonResult += `is higher than your average Leq by ${leqDifference.toFixed(2)} dB. This is a bad trend.`;
+            } else if (leqDifference < 0) {
+                comparisonResult += `is lower than your average Leq by ${Math.abs(leqDifference).toFixed(2)} dB. This is a good trend.`;
+            } else {
+                comparisonResult += `is exactly at your average Leq. You are maintaining your exposure levels.`;
+            }
+            
+            // Display the result
+            document.getElementById('leqComparisonResult').textContent = comparisonResult;
+    }
 
 
         function LeqCalc(lVals) {
@@ -252,8 +364,140 @@
             return Leq;
         }
 
-        });
         
+        function estimateHearingLoss() {
+            gender = document.getElementById('gender').value;
+            currentAge= parseInt(document.getElementById('age').value, 10);
+            const hearingLossPerYear = { male: 0.8, female: 0.5 };
+            const frequency = 4000; // Hz
+            const hearingLossList = document.getElementById('hearingLossList');
+    
+            if (isNaN(currentAge)) {
+            console.error('Please enter a valid age.');
+            return;
+            }
+
+            hearingLossList.innerHTML = '';
+
+            // Calculate hearing loss for current age
+            let currentLoss = currentAge > 15 ? (currentAge - 15) * hearingLossPerYear[gender] : 0;
+
+            // Estimate the hearing loss for future ages and append to the list
+            for (let futureAge = currentAge; futureAge <= 70; futureAge += 5) {
+                const additionalYears = futureAge - currentAge;
+                const futureHearingLoss = currentLoss + (hearingLossPerYear[gender] * additionalYears);
+                
+                // Create a new list item
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<strong>At age ${futureAge}, your estimated hearing loss at ${frequency} Hz is ${futureHearingLoss.toFixed(1)} dB.</strong>`;
+                hearingLossList.appendChild(listItem);
+            }
+            
+    
+        }
+
+        });
+
+        function detailed_hearing_loss_risk_with_probabilities(leq) {
+         
+            const low_risk_threshold = 75;
+            const moderate_risk_threshold = 85;
+            const high_risk_threshold = 95;
+            const very_high_risk_threshold = 105;
+
+            const probability_low = 10;
+            const probability_moderate = 30;
+            const probability_high = 60;
+            const probability_very_high = 90;
+
+            let risk
+
+            if (leq < low_risk_threshold) {
+                risk = "Low";
+                probability = probability_low;
+            } else if (leq < moderate_risk_threshold) {
+                risk = "Moderate";
+                probability = probability_moderate;
+            } else if (leq < high_risk_threshold) {
+                risk = "High";
+                probability = probability_high;
+            } else {
+                risk = "Very High";
+                probability = probability_very_high;
+            }
+
+            return [risk, probability];
+        }
+
+  
+        function calculatePercentile(userScore) {
+            var count = 0;
+            for (let score of populationScores) {
+                if (score <= userScore) {
+                    count++;
+                }
+            }
+            return (count / populationScores.length) * 100;
+        }
+
+        function plotChart(percentile) {
+            var canvas = document.getElementById("myChart");
+            var data = {
+                labels: [
+                    "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"
+                ],
+                datasets: [{
+                    data: [
+                        4, 8, 15, 30, 40, 30, 15, 8, 4
+                    ],
+                    backgroundColor: "rgba(0, 0, 255, 0.6)" // Setting a single color for all bars
+                }]
+            };
+            var option = {
+                tooltips: {
+                    enabled: false
+                },
+                legend: {
+                    display: false
+                },
+                annotation: {
+                    annotations: [{
+                        type: "line",
+                        mode: "vertical",
+                        scaleID: "x-axis-0",
+                        value: percentile + "%",
+                        borderColor: "black",
+                        label: {
+                            content: "Your Score",
+                            enabled: true,
+                            position: "center"
+                        }
+                    }]
+                },
+                scales: {
+                    yAxes: [{
+                        display: false
+                    }],
+                    xAxes: [{
+                        barPercentage: 1.0,
+                        categoryPercentage: 1.0,
+                        gridLines: {
+                            display: false
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Average Score"
+                        }
+                    }]
+                }
+            };
+
+            var myBarChart = new Chart(canvas, {
+                type: 'bar',
+                data: data,
+                options: option
+            });
+        }
     </script>
 </body>
 </html>
