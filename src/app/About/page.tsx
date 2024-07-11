@@ -8,11 +8,11 @@ export default function AboutMe() {
         <section className='space-y-6 sm:space-y-8 max-w-prose mx-auto'>
             <div>
                 <h2 className='text-2xl sm:text-3xl md:text-4xl font-semibold mb-2'>
-                    Founder of 
+                    previous founder of 
                     <span className='text-blue-600 ml-3 font-bold'>Induct</span>
                 </h2>
                 <p>
-                    I am a founder of
+                    I was a founder of
                     <a className='underline ml-1 font-bold' href='https://induct.ie/'>Induct</a>, 
                     a straightforward solution for Access Management.
                 </p>
