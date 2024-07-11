@@ -7,10 +7,6 @@ export default function Contact(){
             <section className='space-y-6 sm:space-y-8 max-w-prose mx-auto'> 
                 <ul>
                     <li className="text-base sm:text-lg md:text-xl">
-                      Work Email:  
-                      <span className="ml-2 font-bold">Ryan@induct.ie</span>
-                    </li>
-                    <li className="text-base sm:text-lg md:text-xl">
                       Personal Email: 
                       <span className="ml-2 font-bold">Ryanj.morrissey@gmail.com </span>
                     </li>
